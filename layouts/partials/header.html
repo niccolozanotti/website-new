@@ -1,0 +1,13 @@
+<!-- <h1>{{ .Site.Title }}</h1> -->
+<div class="site-header">
+    <h1><img style="height: 50px; vertical-align: middle; margin-right: 10px;" src='{{ "/images/logo.png" | relURL }}' alt="{{ .Site.Title }} logo" />{{ .Site.Title }}</h1>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label='{{ if eq .Site.Language.Lang "it" }}Cambia tema{{ else }}Toggle color theme{{ end }}' aria-pressed="false">
+        <img id="theme-toggle-icon" class="theme-toggle-icon" src='{{ "/light-mode.svg" | relURL }}' alt="">
+    </button>
+</div>
+<nav>
+    {{ range .Site.Menus.main }}
+    <a href="{{ .URL }}">{{ .Name }}</a>
+    {{ end }}
+</nav>
+<br>

@@ -1,0 +1,15 @@
+{{ $updated := time.AsTime "0001-01-01T00:00:00Z" }}
+{{ with .Params.lastmod }}
+{{ $updated = time.AsTime . }}
+{{ end }}
+{{ if and .File $updated.IsZero }}
+{{ $updated = .File.FileInfo.ModTime }}
+{{ end }}
+{{ if and $updated.IsZero .Date }}
+{{ $updated = .Date }}
+{{ end }}
+{{ if not $updated.IsZero }}
+<p class="last-updated">
+    <small>{{ if eq .Site.Language.Lang "it" }}Ultimo aggiornamento:{{ else }}Last updated on:{{ end }} {{ $updated | time.Format "2 January 2006" }}</small>
+</p>
+{{ end }}
