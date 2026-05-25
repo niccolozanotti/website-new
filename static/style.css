@@ -272,3 +272,39 @@ h6:hover .heading-anchor,
 .heading-anchor:focus {
     opacity: 1;
 }
+
+.presentations-page {
+    text-align: left;
+}
+
+.presentations-intro p {
+    margin-bottom: 1.4rem;
+}
+
+.presentation-year-group + .presentation-year-group {
+    margin-top: 1.8rem;
+}
+
+.presentation-year {
+    border-bottom: 1px solid currentColor;
+    display: inline-block;
+    font-size: 1.15rem;
+    letter-spacing: .04em;
+    margin-bottom: .45rem;
+    padding-bottom: .1rem;
+}
+
+.presentation-list {
+    list-style: disc;
+    margin: 0 0 0 1.2rem;
+    padding: 0;
+}
+
+.presentation-item {
+    margin: 0 0 .75rem 0;
+    padding-left: .1rem;
+}
+
+.presentation-title {
+    font-weight: 600;
+}
