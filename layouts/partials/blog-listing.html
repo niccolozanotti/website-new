@@ -1,0 +1,9 @@
+{{ range where .Site.RegularPages "Section" "posts" }}
+<div class="article">
+  <p>
+    <span>{{ .Date | time.Format ":date_long" }}</span>
+    <br>
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+  </p>
+</div>
+{{ end }}

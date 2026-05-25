@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script>
+            (function() {
+                try {
+                    var storedTheme = localStorage.getItem("theme");
+                    if (storedTheme === "light" || storedTheme === "dark") {
+                        document.documentElement.setAttribute("data-theme", storedTheme);
+                    }
+                } catch (error) {
+                    return;
+                }
+            })();
+        </script>
+        <link rel="stylesheet" type="text/css" href='{{ "/style.css" | relURL }}'>
+        <link rel="icon" href='{{ "/images/favicon.ico" | relURL }}' sizes="any">
+        <link rel="apple-touch-icon" sizes="180x180" href='{{ "/images/apple-touch-icon.png" | relURL }}'>
+        <link rel="icon" type="image/png" sizes="32x32" href='{{ "/images/favicon-32x32.png" | relURL }}'>
+        <link rel="icon" type="image/png" sizes="16x16" href='{{ "/images/favicon-16x16.png" | relURL }}'>
+        <link rel="manifest" href='{{ "/images/site.webmanifest" | relURL }}'>
+        {{ $noop := .WordCount }}
+        {{ if .Param "math" }}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
+        {{ end }}
+        {{ $title := print .Title " | " .Site.Title }}
+        {{ if .IsHome }}{{ $title = .Site.Title }}{{ end }}
+        <title>{{ $title }}</title>
+    </head>
+    <body>
+        {{- partial "header.html" . -}}
+        <main id="content">
+        {{- block "main" . }}{{- end }}
+        {{- partial "last-updated.html" . -}}
+        </main>
+        <br>
+        {{- partial "footer.html" . -}}
+        <script>
+            (function() {
+                var root = document.documentElement;
+                var button = document.getElementById("theme-toggle");
+                var icon = document.getElementById("theme-toggle-icon");
+                var mediaQuery = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+
+                if (!button || !icon) {
+                    return;
+                }
+
+                function getStoredTheme() {
+                    try {
+                        var storedTheme = localStorage.getItem("theme");
+                        return storedTheme === "light" || storedTheme === "dark" ? storedTheme : null;
+                    } catch (error) {
+                        return null;
+                    }
+                }
+
+                function getTheme() {
+                    var currentTheme = root.getAttribute("data-theme");
+                    if (currentTheme === "light" || currentTheme === "dark") {
+                        return currentTheme;
+                    }
+
+                    return mediaQuery && mediaQuery.matches ? "dark" : "light";
+                }
+
+                function applyTheme(theme, persist) {
+                    root.setAttribute("data-theme", theme);
+                    if (persist) {
+                        try {
+                            localStorage.setItem("theme", theme);
+                        } catch (error) {
+                        }
+                    }
+                    button.setAttribute("aria-pressed", String(theme === "dark"));
+                    button.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+                    icon.setAttribute("src", theme === "dark" ? '{{ "/light-mode.svg" | relURL }}' : '{{ "/dark-mode.svg" | relURL }}');
+                }
+
+                button.addEventListener("click", function() {
+                    applyTheme(getTheme() === "dark" ? "light" : "dark", true);
+                });
+
+                applyTheme(getStoredTheme() || getTheme(), false);
+            })();
+        </script>
+    </body>
+</html>

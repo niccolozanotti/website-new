@@ -1,0 +1,20 @@
+<footer>
+    <center>
+        <small>
+            {{ $repo := .Param "sourceCodeRepo" }}
+            {{ if .IsTranslated }}
+            {{ range .Translations }}
+            <a href="{{ .RelPermalink }}">{{ if eq $.Site.Language.Lang "it" }}🇺🇸 English version{{ else }}🇮🇹 Versione italiana{{ end }}</a>
+            <br>
+            {{ end }}
+            {{ end }}
+            <a href='{{ "privacy/" | relLangURL }}'>Privacy Policy</a>
+            {{ with $repo }}
+            {{ with $.File }}
+            {{ $sourcePath := path.Join "content" $.Site.Language.Lang .Path }}
+             | <a href='{{ printf "https://github.com/%s/blob/main/%s" $repo $sourcePath }}'>Page Source</a>
+            {{ end }}
+            {{ end }}
+        </small>
+    </center>
+</footer>

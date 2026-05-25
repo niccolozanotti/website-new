@@ -1,0 +1,30 @@
+{{ $updated := time.AsTime "0001-01-01T00:00:00Z" }}
+{{ with .File }}
+{{ $updated = (os.Stat .Path).ModTime }}
+{{ else }}
+{{ if .Date }}
+{{ $updated = .Date }}
+{{ end }}
+{{ end }}
+
+{{ if .IsSection }}
+{{ range .RegularPagesRecursive }}
+{{ $candidate := time.AsTime "0001-01-01T00:00:00Z" }}
+{{ with .File }}
+{{ $candidate = (os.Stat .Path).ModTime }}
+{{ else }}
+{{ if .Date }}
+{{ $candidate = .Date }}
+{{ end }}
+{{ end }}
+{{ if gt $candidate.Unix $updated.Unix }}
+{{ $updated = $candidate }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+{{ if not $updated.IsZero }}
+<p class="last-updated">
+    <small>{{ if eq .Site.Language.Lang "it" }}Ultimo aggiornamento:{{ else }}Last updated on:{{ end }} {{ $updated | time.Format "2 January 2006" }}</small>
+</p>
+{{ end }}

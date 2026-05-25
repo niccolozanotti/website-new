@@ -1,0 +1,4 @@
+{{ define "main" }}
+<meta http-equiv="refresh" content="0; url={{ "about/" | relLangURL }}">
+<p><a href='{{ "about/" | relLangURL }}'>{{ if eq .Site.Language.Lang "it" }}Vai alla pagina About{{ else }}Go to the about page{{ end }}</a></p>
+{{ end }}

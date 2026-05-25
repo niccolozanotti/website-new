@@ -1,0 +1,83 @@
+baseURL = 'https://niccolozanotti.com'
+title = 'Niccolò Zanotti'
+defaultContentLanguage = 'en'
+defaultContentLanguageInSubdir = true
+
+[markup]
+[markup.goldmark]
+[markup.goldmark.extensions]
+[markup.goldmark.extensions.passthrough]
+enable = true
+[markup.goldmark.extensions.passthrough.delimiters]
+block = [['\\[', '\\]'], ['$$', '$$']]
+inline = [['\\(', '\\)']]
+[markup.goldmark.parser]
+autoHeadingID = true
+autoHeadingIDType = 'github'
+
+[markup.goldmark.parser.attribute]
+block = true
+
+[privacy]
+[privacy.disqus]
+disable = true
+[privacy.googleAnalytics]
+disable = true
+[privacy.instagram]
+disable = true
+[privacy.x]
+disable = true
+[privacy.vimeo]
+disable = true
+[privacy.youtube]
+disable = true
+
+[outputs]
+section = ["HTML"]
+
+[params]
+logo = "/images/logo.png"
+math = true
+sourceCodeRepo = "niccolozanotti/website-new"
+
+[languages.en]
+languageCode = 'en-US'
+languageName = 'English'
+weight = 1
+contentDir = 'content/en'
+
+[[languages.en.menu.main]]
+name = "About"
+pageRef = "/about"
+weight = 10
+
+[[languages.en.menu.main]]
+name = "Blog"
+pageRef = "/posts"
+weight = 20
+
+[[languages.en.menu.main]]
+name = "Presentations"
+pageRef = "/presentations"
+weight = 30
+
+[languages.it]
+languageCode = 'it-IT'
+languageName = 'Italiano'
+weight = 2
+contentDir = 'content/it'
+
+[[languages.it.menu.main]]
+name = "About"
+pageRef = "/about"
+weight = 10
+
+[[languages.it.menu.main]]
+name = "Blog"
+pageRef = "/posts"
+weight = 20
+
+[[languages.it.menu.main]]
+name = "Presentazioni"
+pageRef = "/presentations"
+weight = 30
